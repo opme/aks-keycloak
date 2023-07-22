@@ -24,7 +24,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cluster_pool" {
   eviction_policy = each.value.priority == "Spot" ? each.value.eviction_policy : null
 
   spot_max_price = each.value.priority == "Spot" ? each.value.spot_max_price : null
-  vnet_subnet_id = var.subnet_id
+  vnet_subnet_id = azurerm_subnet.aks-default.id
 
   lifecycle {
     ignore_changes = [

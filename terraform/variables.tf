@@ -8,16 +8,6 @@ variable "location" {
   type        = string
 }
 
-variable "subnet_id" {
-  description = "The target subnet to which the cluster is deployed into"
-  type        = string
-}
-
-variable "resource_group_name" {
-  description = "The target resource group to which the cluster is deployed into"
-  type        = string
-}
-
 variable "default_pool" {
   description = "Object that describes the default node pool"
   type = object({
@@ -31,11 +21,6 @@ variable "default_pool_os_disk_type" {
   description = "Disk type (managed / ephemeral) for the os disk. Controlled with a separate variable for the node pools"
   type        = string
   default     = "Managed"
-}
-
-variable "log_analytics_workspace_id" {
-  description = "The Log Analytics workspace used for exporting the logs from this cluster"
-  type        = string
 }
 
 variable "aks_admins" {

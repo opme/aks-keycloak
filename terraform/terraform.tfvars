@@ -7,7 +7,6 @@ aks_admins                 = ""
 admin_aad_group_object_ids = ""
 enable_rbac               = true # enable azure ad rbac
 enable_aad_integrated_aks = true # enable aad integration with the aks cluster ie. users need to authenticate with azure ad
-enable_network_access     = true # provide network contributor to the cluster identity -- not needed most likely
 
 default_pool = {
   pool_node_count      = 2

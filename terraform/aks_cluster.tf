@@ -21,7 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type                 = "VirtualMachineScaleSets"
     os_disk_size_gb      = var.default_pool.pool_os_disk_size_gb
     os_disk_type         = var.default_pool_os_disk_type
-    vnet_subnet_id       = var.subnet_id
+    vnet_subnet_id       = azurerm_subnet.aks-default.id
     orchestrator_version = var.kubernetes_version
   }
 
@@ -37,7 +37,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   oms_agent {
-    log_analytics_workspace_id = var.azurerm_log_analytics_workspace.demo.id
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.demo.id
   }
 
   azure_active_directory_role_based_access_control {
