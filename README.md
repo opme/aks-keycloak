@@ -54,8 +54,8 @@ cd /tmp
 sudo apt-get update 
 sudo apt-get upgrade 
 sudo apt-get install unzip
-wget https://releases.hashicorp.com/terraform/1.5.3/terraform_1.5.3_darwin_amd64.zip
-unzip terraform_1.5.3_darwin_amd64.zip
+wget https://releases.hashicorp.com/terraform/1.5.3/terraform_1.5.3_amd64.zip
+unzip terraform_1.5.3_amd64.zip
 sudo mv terraform /usr/local/bin
 
 Azure client
