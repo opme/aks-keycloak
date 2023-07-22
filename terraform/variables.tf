@@ -121,3 +121,9 @@ variable "admin_aad_group_object_ids" {
   description = "Object id for the Azure AD group that will serve as the administrator, in case enable_aad_integrated_aks is enabled"
   type = string
 }
+
+variable "acr_enable_admin_login" {
+  description = "Is admin login enabled, defaults to false"
+  type        = bool
+  default     = false
+}

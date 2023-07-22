@@ -1,15 +1,3 @@
-terraform {
-  required_version = ">=0.13"
-
-  required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-
-      configuration_aliases = [azurerm.target, azurerm.hub]
-    }
-  }
-}
-
 resource "azurerm_container_registry" "acr" {
   provider = azurerm.target
 
