@@ -1,16 +1,5 @@
-resource "random_pet" "prefix" {}
-
 provider "azurerm" {
   features {}
-}
-
-resource "azurerm_resource_group" "aks" {
-  name     = "${random_pet.prefix.id}-rg"
-  location = "West US 2"
-
-  tags = {
-    environment = "Demo"
-  }
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
