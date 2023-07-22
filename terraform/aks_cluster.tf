@@ -1,13 +1,10 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 resource "random_pet" "prefix" {}
 
 provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "default" {
+resource "azurerm_resource_group" "aks" {
   name     = "${random_pet.prefix.id}-rg"
   location = "West US 2"
 
@@ -16,11 +13,16 @@ resource "azurerm_resource_group" "default" {
   }
 }
 
-resource "azurerm_kubernetes_cluster" "default" {
+resource "azurerm_kubernetes_cluster" "aks" {
   name                = "${random_pet.prefix.id}-aks"
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.aks.location
+  resource_group_name = azurerm_resource_group.aks.name
   dns_prefix          = "${random_pet.prefix.id}-k8s"
+  tags                = var.tags
+
+  timeouts {
+    update = "90m"
+  } 
 
   default_node_pool {
     name                 = "default"
@@ -34,6 +36,17 @@ resource "azurerm_kubernetes_cluster" "default" {
     orchestrator_version = var.kubernetes_version
   }
 
+  network_profile {
+    network_plugin = var.network_plugin
+    network_policy = "calico"
+    outbound_type  = "userDefinedRouting"
+  }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [var.aks_identity.id]
+  }
+
   oms_agent {
     log_analytics_workspace_id = var.log_analytics_workspace_id
   }
@@ -44,7 +57,4 @@ resource "azurerm_kubernetes_cluster" "default" {
     azure_rbac_enabled     = var.enable_rbac
   }
 
-  tags = {
-    environment = "Demo"
-  }
 }

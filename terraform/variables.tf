@@ -105,3 +105,34 @@ variable "enable_aad_integrated_aks" {
   description = "Boolean value for enabling or disabling Azure AD integrated AKS"
   type        = bool
 }
+
+variable "network_plugin" {
+  description = "The network plugin of choice for a new AKS cluster. Suitable values are either kubenet or azure. Changing this value requires a cluster redeployment."
+  type        = string
+  default     = "azure"
+}
+
+variable "enable_container_log_v2" {
+  description = "Boolean of enabling containerLogV2 schemas (preview feature in aks)"
+  type        = bool
+  default     = false
+}
+
+variable "aks_identity" {
+  description = "User assigned managed identity resource"
+  type = object({
+    id           = string
+    principal_id = string
+  })
+  default = null
+}
+
+variable "tags" {
+  description = "Map object of tag key-value pairs to be added."
+  type        = map(string)
+}
+
+variable "admin_aad_group_object_ids" {
+  description = "Object id for the Azure AD group that will serve as the administrator, in case enable_aad_integrated_aks is enabled"
+  type = string
+}

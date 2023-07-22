@@ -1,14 +1,21 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 terraform {
+  required_version = ">=0.13"
   required_providers {
+    azurecaf = {
+      source  = "aztfmod/azurecaf"
+      version = "~> 1.1"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.66.0"
+      version = "~> 3.45"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.18"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.4"
     }
   }
-
-  required_version = ">= 0.14"
 }
-
