@@ -26,10 +26,18 @@ Keycloak
 
 We are simulating an IDP that is external to the AKS cluster.  This will have a simple setup in a VM that has docker installed and is brought up with docker compose and is accesses through a public ip with a TLS certificate.
 
+Local Development
+-----------------
+
+Install the binaries from Development Environment Installation below
+
+cd terraform
+terraform init
+
 Development Environment Installation
 ------------------------------------
 
-Installation is into windows machine running wsl that can be used to a local kubernetes and also provision the infrastructure in AKS.
+Installation is into windows machine running Windows Subsystem for Linux (wsl) that can be used to a local kubernetes and also provision the infrastructure in AKS.
 
 WSL
 Enabe WSL v2
@@ -60,15 +68,7 @@ sudo mv terraform /usr/local/bin
 
 Azure client
 
-Install through apt
-sudo apt-get update
-sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupgsudo 
-sudo mkdir -p /etc/apt/keyrings
-curl -sLS https://packages.microsoft.com/keys/microsoft.asc gpg --dearmor sudo tee /etc/apt/keyrings/microsoft.gpg > /dev/nullcurl -sLS https://packages.microsoft.com/keys/microsoft.asc gpg --dearmor sudo tee /etc/apt/keyrings/microsoft.gpg > /dev/null
-    gpg --dearmor |
-    sudo tee /etc/apt/keyrings/microsoft.gpg > /dev/null
-sudo chmod go+r /etc/apt/keyrings/microsoft.gpg
-
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 Kubernetes client
 
