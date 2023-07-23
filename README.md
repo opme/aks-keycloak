@@ -65,6 +65,12 @@ helm upgrade cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --set installCRDs=true
 
+Setting up the application.  First through console and then terraform
+export cookie_secret="$(openssl rand -hex 16)" # Create local variable
+az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-client-id" --value "4c8c2a21-98f4-4482-a7a7-0307fb60ccc1"
+az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-client-secret" --value "2bW8Q~6W4mwxEIY0lLAxyinPZzyGSlHZWwfaRdn7"
+az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-cookie-secret" --value $cookie_secret
+
 
 Development Environment Installation
 ------------------------------------
