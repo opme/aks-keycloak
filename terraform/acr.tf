@@ -1,22 +1,10 @@
-resource "azurerm_container_registry" "acr" {
-  provider = azurerm.target
-
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  sku                 = "Premium"
-  admin_enabled       = var.enable_admin_login
-
-  tags = merge(var.tags,
-    {
-      component = "acr"
-  })
-
-  network_rule_set {
-    default_action = "Deny"
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
+locals {
+  acr_name = "${replace(var.dns_prefix, "-", "")}acr"
+}
+resource "azurerm_container_registry" "aks" {
+  name                     = local.acr_name
+  resource_group_name      = azurerm_resource_group.aks.name
+  location                 = azurerm_resource_group.aks.location
+  sku                      = "Standard"
+  admin_enabled            = false
 }

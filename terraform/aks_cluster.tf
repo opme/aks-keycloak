@@ -28,22 +28,16 @@ resource "azurerm_kubernetes_cluster" "aks" {
   network_profile {
     network_plugin = var.network_plugin
     network_policy = "calico"
-    outbound_type  = "userDefinedRouting"
   }
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [var.aks_identity.id]
+    identity_ids = [azurerm_user_assigned_identity.aks.id]
   }
 
   oms_agent {
     log_analytics_workspace_id = azurerm_log_analytics_workspace.demo.id
   }
 
-  azure_active_directory_role_based_access_control {
-    managed                = var.enable_aad_integrated_aks
-    admin_group_object_ids = [var.admin_aad_group_object_ids]
-    azure_rbac_enabled     = var.enable_rbac
-  }
-
+  depends_on = [azurerm_role_assignment.aks_network, azurerm_role_assignment.aks_acr]
 }

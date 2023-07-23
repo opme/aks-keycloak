@@ -1,7 +1,7 @@
 location = "eastus"
 cluster_name = "demo"
 aks_cluster_sku_tier = "Free"
-kubernetes_version = "1.27"
+kubernetes_version = "1.25.6"
 aks_users                  = ""
 aks_admins                 = ""
 admin_aad_group_object_ids = ""
@@ -10,7 +10,7 @@ enable_aad_integrated_aks = true # enable aad integration with the aks cluster i
 
 default_pool = {
   pool_node_count      = 2
-  pool_vm_size         = "Standard_D2ds_v5"
+  pool_vm_size         = "Standard_B2s"
   pool_os_disk_size_gb = 128
   pool_os_disk_type    = "Ephemeral"
 }
@@ -18,8 +18,8 @@ aks_pools = {
   general = {
     name                 = "general"
     priority             = "Regular"
-    pool_node_count      = 2
-    pool_vm_size         = "Standard_D2ds_v5"
+    pool_node_count      = 1
+    pool_vm_size         = "Standard_B2s"
     pool_os_disk_size_gb = 256
     pool_os_disk_type    = "Ephemeral"
 

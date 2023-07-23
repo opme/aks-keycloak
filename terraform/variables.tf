@@ -127,3 +127,9 @@ variable "acr_enable_admin_login" {
   type        = bool
   default     = false
 }
+
+variable "dns_prefix" {
+  type        = string
+  description = "DNS Prefix"
+  default     = "tfq"
+}
