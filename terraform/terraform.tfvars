@@ -10,7 +10,7 @@ enable_aad_integrated_aks = true # enable aad integration with the aks cluster i
 
 default_pool = {
   pool_node_count      = 2
-  pool_vm_size         = "Standard_D8ds_v5"
+  pool_vm_size         = "Standard_D2ds_v5"
   pool_os_disk_size_gb = 128
   pool_os_disk_type    = "Ephemeral"
 }
@@ -19,7 +19,7 @@ aks_pools = {
     name                 = "general"
     priority             = "Regular"
     pool_node_count      = 2
-    pool_vm_size         = "Standard_D8ds_v5"
+    pool_vm_size         = "Standard_D2ds_v5"
     pool_os_disk_size_gb = 256
     pool_os_disk_type    = "Ephemeral"
 
