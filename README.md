@@ -1,5 +1,7 @@
 # aks-keycloak
 
+Directory structure:
+
 Terraform code
    aks
    keyvault
@@ -26,13 +28,43 @@ Keycloak
 
 We are simulating an IDP that is external to the AKS cluster.  This will have a simple setup in a VM that has docker installed and is brought up with docker compose and is accesses through a public ip with a TLS certificate.
 
-Local Development
------------------
+AKS Development
+---------------
 
 Install the binaries from Development Environment Installation below
 
 cd terraform
 terraform init
+terraform plan
+terraform apply
+
+This is creating the Vnet, Subnet, AKS cluster, ACR
+
+AKS Cluster is using a system defined managed identity to connec to ACR
+
+az aks get-credentials --resource-group perfect-grouper-rg --name perfect-grouper-aks
+Merged "perfect-grouper-aks" as current context in /home/mshamber/.kube/config
+
+Install the nginx ingress
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+See that the public ip is created
+kubectl --namespace ingress-nginx get services -o wide -w ingress-nginx-controller
+
+
+https://cert-manager.io/docs/tutorials/getting-started-aks-letsencrypt/
+Add cert manager to get letsencrypt certificate
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm upgrade cert-manager jetstack/cert-manager \
+    --install \
+    --create-namespace \
+    --wait \
+    --namespace cert-manager \
+    --set installCRDs=true
+
 
 Development Environment Installation
 ------------------------------------
