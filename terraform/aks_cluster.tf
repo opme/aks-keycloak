@@ -31,13 +31,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   identity {
-    type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.aks.id]
+    type = "SystemAssigned"
   }
 
   oms_agent {
     log_analytics_workspace_id = azurerm_log_analytics_workspace.demo.id
   }
-
-  depends_on = [azurerm_role_assignment.aks_network, azurerm_role_assignment.aks_acr]
 }
