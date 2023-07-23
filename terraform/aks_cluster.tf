@@ -9,6 +9,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "${random_pet.prefix.id}-k8s"
   tags                = var.tags
 
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
+  }
+
   timeouts {
     update = "90m"
   } 
