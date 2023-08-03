@@ -3,15 +3,15 @@
 Directory structure:
 
 Terraform code
-   aks
-   keyvault
-   azure-sql database
+   aks <br/> 
+   keyvault<br/>
+   azure-sql database<br/>
    
 
 Helm charts
-   keycloak
-   ingress
-   sampleapp
+   keycloak<br/>
+   ingress<br/>
+   sampleapp<br/>
 
 Azure Devops Pipelines
    pipelines include:
@@ -54,6 +54,10 @@ helm upgrade --install ingress-nginx ingress-nginx \
 See that the public ip is created
 kubectl --namespace ingress-nginx get services -o wide -w ingress-nginx-controller
 
+Add FQDN and test
+run scripts/fqdn.sh after updating the new public ip address
+https://keycloak-aks-oauth-demo.eastus.cloudapp.azure.com
+
 
 https://cert-manager.io/docs/tutorials/getting-started-aks-letsencrypt/
 Add cert manager to get letsencrypt certificate
@@ -66,33 +70,6 @@ helm upgrade cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --set installCRDs=true
 
-
-Setting up the sample color application.  First through console and then terraform
-Create AD appliction in azure portal
-export cookie_secret="$(openssl rand -hex 16)" # Create local variable
-az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-client-id" --value "4c8c2a21-98f4-4482-a7a7-0307fb60ccc1"
-az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-client-secret" --value "2bW8Q~6W4mwxEIY0lLAxyinPZzyGSlHZWwfaRdn7"
-az keyvault secret set --vault-name "perfect-grouper-demo-kv" --name "oauth2-proxy-cookie-secret" --value $cookie_secret
-
-Verify the Azure secret store CSI driver is enabled:
-az aks addon list –name perfect-grouper-aks  --resource-group perfect-grouper-rg
-kubectl get pods -n kube-system -l 'app in (secrets-store-csi-driver,secrets-store-provider-azure)
-
-Query the id of the managed identity in the cluster
-az aks show -g perfect-grouper-rg -n perfect-grouper-aks --query addonProfiles.azureKeyvaultSecretsProvider.identity.clientId -o tsv
-c1867a83-acfc-4da7-b021-82be8493bab5
-
-# set policy to access keys in your key vault
-az keyvault set-policy -n perfect-grouper-demo-kv --key-permissions get --spn c1867a83-acfc-4da7-b021-82be8493bab5
-# set policy to access secrets in your key vault
-az keyvault set-policy -n perfect-grouper-demo-kv --secret-permissions get --spn c1867a83-acfc-4da7-b021-82be8493bab5
-# set policy to access certs in your key vault
-az keyvault set-policy -n perfect-grouper-demo-kv --certificate-permissions get --spn c1867a83-acfc-4da7-b021-82be8493bab5
-
-Add secrets provider
-kubectl apply -f SecretProviders.yaml
-kubectl apply -f colorswebapi.yaml
-kubectl apply -f colorswebapp.yaml
 
 Development Environment Installation
 ------------------------------------
