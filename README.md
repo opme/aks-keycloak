@@ -2,26 +2,26 @@
 
 Directory structure:
 
-Terraform code
-   aks <br/> 
+Terraform code:<br/>
+   aks<br/> 
    keyvault<br/>
    azure-sql database<br/>
    
 
-Helm charts
+Helm charts:
    keycloak<br/>
    ingress<br/>
    sampleapp<br/>
 
 Azure Devops Pipelines
-   pipelines include:
-      build docker containers 
-      Package helm charts
-      Deploy application
+   pipelines include:<br/>
+      build docker containers<br/>
+      Package helm charts<br/>
+      Deploy application<br/>
 
-Sample Application
-   Sample application deployed as a helm chart and using Azure AD Workload Identity to access application specific key vaults.  User authentication is handled through external keycloak IDP.
-   Dockerfile
+Sample Application<br/>
+   Sample application deployed as a helm chart and using Azure AD Workload Identity to access application specific key vaults.  User authentication is handled through external keycloak IDP.<br/>
+   Dockerfile<br/>
 
 Keycloak
 --------
