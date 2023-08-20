@@ -3,6 +3,9 @@ resource "azuredevops_project" "test" {
   description = "Go compilation project"
 }
 
+# read the projects from tfvars and create them
+
+
 module "multi_stage_repo" {
   source = "./modules/repo/multi-stage-terraform"
 
