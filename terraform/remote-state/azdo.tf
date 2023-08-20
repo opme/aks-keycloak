@@ -4,7 +4,18 @@ resource "azuredevops_project" "test" {
 }
 
 # read the projects from tfvars and create them
+locals {
+  project_keys = toset(keys(var.org_setup))  # Gets keys of the outermost map (project names)
+}
 
+output "project_keys_output" {
+  value = local.project_keys
+}
+
+resource "azuredevops_project" "org" {
+  for_each = local.project_keys
+  name        = each.key
+}
 
 module "multi_stage_repo" {
   source = "./modules/repo/multi-stage-terraform"

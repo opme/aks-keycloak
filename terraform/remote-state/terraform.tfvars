@@ -41,6 +41,20 @@ org_setup = {
           container       = "foo"
         }
       }
+      prod = {
+        reviewers = ["mark@foo.com"]
+        subscription = {
+          client_id       = "foo"
+          client_secret   = "foo"
+          tenant_id       = "foo"
+          subscription_id = "foo"
+        }
+        backend = {
+          resource_group  = "foo"
+          storage_account = "foo"
+          container       = "foo"
+        }
+      }
     }
   }
 }
