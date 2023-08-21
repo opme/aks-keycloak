@@ -17,11 +17,27 @@ resource "azuredevops_project" "org" {
   name        = each.key
 }
 
+locals {
+  project_ids = { for key, project in azuredevops_project.org : key => project.id }
+  project_ids2 = [ for key in azuredevops_project.org : key.id ]
+}
+
+output "project_ids" {
+  description = "Resource IDs of created projects"
+  value       = local.project_ids
+}
+
+output "project_ids2" {
+  description = "Resource IDs of created projects"
+  value       = local.project_ids2
+}
+
 module "multi_stage_repo" {
+  for_each = local.project_ids
   source = "./modules/repo/multi-stage-terraform"
 
   application_name = var.application_name
-  project_id       = azuredevops_project.test.id
+  project_id       = each.value
   repo_name        = "test-terraform"
   reviewers        = var.reviewers
 
