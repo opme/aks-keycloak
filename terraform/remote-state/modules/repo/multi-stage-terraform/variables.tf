@@ -6,7 +6,7 @@ variable "environments" {
   type = map(
     object(
       {
-        azure_credential = object({
+        azure_credentials = object({
           client_id       = string
           client_secret   = string
           tenant_id       = string
@@ -22,9 +22,9 @@ variable "environments" {
   )
   description = "Azure Credentials and Terraform State configuration for the instance of this Application or Service (e.g., dev, prod, qa, uat)"
 }
-variable "project_id" {
+variable "project" {
   type        = string
-  description = "Azure DevOps Project ID"
+  description = "Azure DevOps Project Name"
 }
 variable "repo_name" {
   type        = string

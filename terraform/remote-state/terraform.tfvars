@@ -29,13 +29,27 @@ org_setup = {
     environments = {
       dev = {
         reviewers = ["mark@foo.com"]
-        subscription = {
+        azure_credentials = {
           client_id       = "foo"
           client_secret   = "foo"
           tenant_id       = "foo"
           subscription_id = "foo"
         }
-        backend = {
+        azure_backend = {
+          resource_group  = "foo"
+          storage_account = "foo"
+          container       = "foo"
+        }
+      }
+      prod = {
+        reviewers = ["mark@foo.com"]
+        azure_credentials = {
+          client_id       = "foo"
+          client_secret   = "foo"
+          tenant_id       = "foo"
+          subscription_id = "foo"
+        }
+        azure_backend = {
           resource_group  = "foo"
           storage_account = "foo"
           container       = "foo"

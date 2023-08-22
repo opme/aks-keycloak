@@ -1,4 +1,3 @@
-
 data "azuredevops_users" "reviewers" {
   count          = length(var.reviewers)
   principal_name = var.reviewers[count.index]
@@ -10,7 +9,7 @@ module "reviewer_group" {
 
   source = "../../group/baseline"
 
-  project_id  = var.project_id
+  project_id  = data.azuredevops_project.project.id
   name        = "Terraform Reviewers"
   description = "Terraform Reviewers Description"
   members     = local.user_descriptors

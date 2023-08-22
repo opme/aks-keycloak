@@ -1,6 +1,18 @@
+data "azuredevops_project" "project" {
+  name = var.project
+}
+
+output "project" {
+  value = data.azuredevops_project.project
+}
+
+locals {
+  project_id = data.azuredevops_project.project.id
+}
+
 resource "azuredevops_git_repository" "main" {
 
-  project_id = var.project_id
+  project_id = data.azuredevops_project.project.id
   name       = var.repo_name
 
   initialization {

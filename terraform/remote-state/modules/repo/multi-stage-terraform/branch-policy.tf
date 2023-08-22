@@ -12,7 +12,7 @@ module "branching_policy" {
   source = "../../branch-policy/multi-stage-terraform"
 
   environments              = local.branch_policy_environments
-  project_id                = var.project_id
+  project_id                = data.azuredevops_project.project.id
   min_reviewers_enabled     = var.min_reviewers_enabled
   min_reviewer_count        = var.min_reviewer_count
   work_item_linking_enabled = var.work_item_linking_enabled
