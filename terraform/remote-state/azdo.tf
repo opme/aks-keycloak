@@ -21,21 +21,6 @@ locals {
   project_ids = { for key, project in azuredevops_project.org : key => project.id }
 }
 
-output "project_ids" {
-  description = "Resource IDs of created projects"
-  value       = local.project_ids
-}
-
-locals {
-  project_values = { for key, project in var.org_setup : key => project }
-}
-
-
-output "project_values" {
-  description = "Resource IDs of created projects"
-  value       = local.project_values
-}
-
 module "multi_stage_repo" {
   for_each = var.org_setup
   source = "./modules/repo/multi-stage-terraform"
@@ -46,15 +31,4 @@ module "multi_stage_repo" {
   reviewers        = var.reviewers
 
   environments = each.value.environments
-#  environments = {
-#    dev = {
-#      azure_credential = var.dev_subscription
-#      azure_backend    = var.dev_backend
-#    }
-#    prod = {
-#      azure_credential = var.prod_subscription
-#      azure_backend    = var.prod_backend
-#    }
-#  }
-#  depends_on = [ azuredevops_project.org ]
 }
