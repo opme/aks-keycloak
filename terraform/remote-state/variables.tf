@@ -25,7 +25,6 @@ variable "work_item_linking_enabled" {
 variable "project" {
   type = object({
     environments = map(object({
-      reviewers = list(string)
       azure_credentials = object({
         client_id       = string
         client_secret   = string
