@@ -18,7 +18,7 @@ resource "azuredevops_git_repository" "main" {
   initialization {
     init_type   = "Import"
     source_type = "Git"
-    source_url  = "https://github.com/markti/azdo-terraform-template-multi-stage.git"
+    source_url  = "https://github.com/opme/azdo-terraform-template-multi-stage.git"
   }
 
 }
