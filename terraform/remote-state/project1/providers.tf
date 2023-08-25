@@ -1,10 +1,5 @@
 data "azurerm_client_config" "current" {}
 
-module "azure-terraformer" {
-  source  = "markti/azure-terraformer/azuredevops"
-  version = "1.0.13"
-}
-
 provider "azurerm" {
   features {}
 }
