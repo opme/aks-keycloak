@@ -1,10 +1,10 @@
-resource "azuredevops_project" "test" {
+resource "azuredevops_project" "project" {
   name        = var.project_name
   description = "Go compilation project"
 }
 
 locals {
-  project_id = azuredevops_project.test.id
+  project_id = azuredevops_project.project.id
 }
 
 output "project_id" {
@@ -20,7 +20,7 @@ locals {
   user_descriptors = flatten([for k in data.azuredevops_users.reviewers : k.users]).*.descriptor
 }
 module "reviewer_group" {
-  source = "./modules/group/baseline"
+  source = "../modules/group/baseline"
 
   project_id  = local.project_id
   name        = "Terraform Reviewers"
@@ -30,7 +30,7 @@ module "reviewer_group" {
 }
 
 module "multi_stage_repo" {
-  source = "./modules/repo/multi-stage-terraform"
+  source = "../modules/repo/multi-stage-terraform"
 
   application_name = var.application_name
   project       = var.project_name
@@ -38,7 +38,7 @@ module "multi_stage_repo" {
   reviewers        = var.reviewers
 
   environments = var.project["environments"]
-  depends_on = [ azuredevops_project.test ]
+  depends_on = [ azuredevops_project.project ]
 }
 
 resource "azuredevops_environment" "main" {
@@ -48,7 +48,7 @@ resource "azuredevops_environment" "main" {
 }
 
 module "pipeline" {
-  source = "./modules/pipeline/multi-stage-terraform"
+  source = "../modules/pipeline/multi-stage-terraform"
 
   for_each = var.project["environments"]
 
@@ -72,7 +72,7 @@ locals {
 }
 
 module "branching_policy" {
-  source = "./modules/branch-policy/multi-stage-terraform"
+  source = "../modules/branch-policy/multi-stage-terraform"
 
   environments              = local.branch_policy_environments
   project_id                = local.project_id
